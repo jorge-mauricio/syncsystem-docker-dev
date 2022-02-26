@@ -2,7 +2,7 @@
 ARG GIT_CONFIG_USER_NAME=Jorge Mauricio
 ARG GIT_CONFIG_USER_EMAIL=web@jorgemauricio.com
 ARG GIT_CONFIG_APP_REPOSITORY=https://github.com/jorge-mauricio/catalogo-v2.leroymerlin.com.br
-ARG APPLICATION_DIRECTORY=catalogo-v2.leroymerlin.com.br
+ARG CONFIG_APP_DIRECTORY=catalogo-v2.leroymerlin.com.br
 
 # Image.
 FROM ubuntu
@@ -12,7 +12,7 @@ FROM ubuntu
 ARG GIT_CONFIG_USER_NAME
 ARG GIT_CONFIG_USER_EMAIL
 ARG GIT_CONFIG_APP_REPOSITORY
-ARG APPLICATION_DIRECTORY
+ARG CONFIG_APP_DIRECTORY
 
 # Update repository.
 RUN apt-get update
@@ -47,10 +47,17 @@ RUN git clone ${GIT_CONFIG_APP_REPOSITORY}
 # Copy donloaded files (github files) to root.
 # TODO: update with the right directory name.
 #RUN mv -v catalogo-v2.leroymerlin.com.br/* /var/www/html/
-RUN mv -v ${APPLICATION_DIRECTORY}/* /var/www/html/
+RUN mv -v ${CONFIG_APP_DIRECTORY}/* /var/www/html/
 #RUN rm -r catalogo-v2.leroymerlin.com.br
-RUN rm -r ${APPLICATION_DIRECTORY}
+RUN rm -r ${CONFIG_APP_DIRECTORY}
 # DEBUG: cheche why when trying to dele the folder after copy, it´s not empty.
+
+
+# Dev helpers files - clone github repository (public).
+RUN git clone https://github.com/jorge-mauricio/syncsystem-docker-dev
+RUN mv  -v syncsystem-docker-dev/misc/phpcheck.php /var/www/html/
+  # PHP check file.
+RUN rm -r syncsystem-docker-dev
 
 # Run apache automatically.
 ENTRYPOINT apachectl -D FOREGROUND
