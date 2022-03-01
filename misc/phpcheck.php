@@ -1,5 +1,5 @@
 <?php 
-
+echo 'Version: 1 <br/>';
 echo "SERVER_ADDR (ip - servidor)= " . $_SERVER['SERVER_ADDR'] . "<br/>"; //pode ser que não funcione em todos os servidores
 echo "LOCAL_ADDR (ip - servidor)= " . $_SERVER['LOCAL_ADDR'] . "<br/>";
 echo "getenv SERVER_ADDR (ip - servidor)= " . getenv('SERVER_ADDR') . "<br/>"; //alternativa
