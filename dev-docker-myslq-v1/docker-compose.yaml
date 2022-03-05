@@ -1,0 +1,20 @@
+version: '3.8'
+services:
+  dev-docker-container-mysql-v1:
+    container_name: dev-docker-container-mysql-v1
+    image: jorgemauriciodev/dev-docker-mysql-v1:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpwd
+        # Assign password for MySQL root user.
+      #MYSQL_DATABASE: rootpwd
+      #MYSQL_USER: ss_dev_db_user
+        #${APP_CONFIG_DB_SYSTEM_USER}
+        # Retrieve variable from .env or environment variables.
+      #MYSQL_PASSWORD: docK#1803
+        #${APP_CONFIG_DB_SYSTEM_PASSWORD}
+      #MYSQL_ROOT_HOST: '%'
+
+    ports:
+      - "3306:3306"
+    #tty: true
+    restart: always

@@ -1,0 +1,7 @@
+version: '3.8'
+services:
+  dev-docker-ubuntu-v1:
+    image: jorgemauriciodev/ubuntu-dockerfile-dev-v1:latest
+    ports:
+      - "85:80"
+    restart: always
