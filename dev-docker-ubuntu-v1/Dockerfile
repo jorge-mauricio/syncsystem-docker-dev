@@ -85,7 +85,10 @@ RUN apt install libapache2-mod-php8.0 -y
 RUN git clone https://github.com/jorge-mauricio/syncsystem-docker-dev
 RUN mv  -v syncsystem-docker-dev/misc/phpcheck.php /var/www/html/
   # PHP check file.
+RUN cp -a -b syncsystem-docker-dev/misc/php-config-files/linux/php8.0/php.ini /etc/php/8.0/apache2/php.ini
+  # PHP 8.0 global config file.
 RUN rm -r syncsystem-docker-dev
+
 
 
 # Run apache automatically.
