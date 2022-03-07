@@ -1,6 +1,7 @@
 # Variables.
 ARG GIT_CONFIG_USER_NAME=Jorge Mauricio
 ARG GIT_CONFIG_USER_EMAIL=web@jorgemauricio.com
+ARG GIT_CONFIG_USER_ACCESS_KEY=${GIT_CONFIG_USER_ACCESS_KEY}
 ARG GIT_CONFIG_APP_REPOSITORY=https://github.com/jorge-mauricio/catalogo-v2.leroymerlin.com.br
 ARG CONFIG_APP_DIRECTORY=catalogo-v2.leroymerlin.com.br
 
@@ -11,6 +12,7 @@ FROM ubuntu
 # NOTE: These variables must be in this part also in order to persist values.
 ARG GIT_CONFIG_USER_NAME
 ARG GIT_CONFIG_USER_EMAIL
+ARG GIT_CONFIG_USER_ACCESS_KEY
 ARG GIT_CONFIG_APP_REPOSITORY
 ARG CONFIG_APP_DIRECTORY
 
@@ -35,16 +37,23 @@ RUN git config --global user.email ${GIT_CONFIG_USER_EMAIL}
 # copy files, etc
 
 
+
 # Make directory to download files.
 RUN mkdir downloads
 RUN cd downloads
+
+# Make ssh directory.
+#RUN mkdir /root/.ssh/
+
+# Clone github repository (private - personal access key strategy).
+RUN git clone https://oauth:${GIT_CONFIG_USER_ACCESS_KEY}@github.com/jorge-mauricio/react-ssr-boiler-plate-challenge-v1
 
 # Clone github repository (public).
 # NOTE: Can be done with pull, but has to init git.
 #RUN git clone https://github.com/jorge-mauricio/catalogo-v2.leroymerlin.com.br
 RUN git clone ${GIT_CONFIG_APP_REPOSITORY}
 
-# Copy donloaded files (github files) to root.
+# Copy downloaded files (github files) to root.
 # TODO: update with the right directory name.
 #RUN mv -v catalogo-v2.leroymerlin.com.br/* /var/www/html/
 RUN mv -v ${CONFIG_APP_DIRECTORY}/* /var/www/html/
