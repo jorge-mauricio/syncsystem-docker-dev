@@ -33,6 +33,8 @@ RUN apt-get -y install git
 RUN git config --global user.name ${GIT_CONFIG_USER_NAME}
 #RUN git config --global user.email "web@jorgemauricio.com"
 RUN git config --global user.email ${GIT_CONFIG_USER_EMAIL}
+# CURL.
+RUN apt-get install curl
 
 # copy files, etc
 
@@ -40,13 +42,15 @@ RUN git config --global user.email ${GIT_CONFIG_USER_EMAIL}
 
 # Make directory to download files.
 RUN mkdir downloads
-RUN cd downloads
+#RUN cd downloads
+CMD cd downloads
 
 # Make ssh directory.
 #RUN mkdir /root/.ssh/
 
 # Clone github repository (private - personal access key strategy).
-RUN git clone https://oauth:${GIT_CONFIG_USER_ACCESS_KEY}@github.com/jorge-mauricio/react-ssr-boiler-plate-challenge-v1
+RUN git clone https://oauth:${GIT_CONFIG_USER_ACCESS_KEY}@github.com/jorge-mauricio/react-ssr-boiler-plate-challenge-v1 downloads/react-ssr-boiler-plate-challenge-v1
+#CMD git clone https://oauth:${GIT_CONFIG_USER_ACCESS_KEY}@github.com/jorge-mauricio/react-ssr-boiler-plate-challenge-v1
 
 # Clone github repository (public).
 # NOTE: Can be done with pull, but has to init git.
@@ -92,7 +96,7 @@ RUN apt install libapache2-mod-php8.0 -y
 
 # Dev helpers files - clone github repository (public).
 RUN git clone https://github.com/jorge-mauricio/syncsystem-docker-dev
-RUN mv  -v syncsystem-docker-dev/misc/phpcheck.php /var/www/html/
+RUN mv -v syncsystem-docker-dev/misc/phpcheck.php /var/www/html/
   # PHP check file.
 RUN cp -a -b syncsystem-docker-dev/misc/php-config-files/linux/php8.0/php.ini /etc/php/8.0/apache2/php.ini
   # PHP 8.0 global config file.
